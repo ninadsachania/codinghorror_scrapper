@@ -1,4 +1,5 @@
 # Author: Ninad Sachania
+
 import bs4 as bs
 import requests 
 import time
@@ -12,7 +13,6 @@ source = requests.get(URL).text
 soup = bs.BeautifulSoup(source, 'lxml')
 
 f = open(FILENAME, 'a')
-md = open('main.md', 'w')
 
 for i in range(1, 286):
     source = requests.get(URL + '/page/' + str(i) +'/').text
@@ -25,16 +25,10 @@ for i in range(1, 286):
     links = []
     for h2 in soup.find_all('h2', class_='post-title'):
         string = h2.a.text 
-        # print(string)
         href = URL + h2.a.get('href')
-        # print(href)
 
         final_string = '<a href="' + href + '">' + str(string) + '</a>'
         links.append(final_string)
-
-        # f.write(final_string)
-        # f.write('<br>')
-        # f.write('\n')
 
     if len(dates) != len(links):
         print("Something's wrong @ " + str(i))
